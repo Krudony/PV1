@@ -1,0 +1,22 @@
+<h1 class="h3 mb-4 text-gray-800">ฝากเงิน</h1>
+<div class="card shadow mb-4">
+  <div class="card-header py-3">
+    <h6 class="m-0 font-weight-bold text-primary">ฟอร์มบันทึกการฝากเงิน</h6>
+  </div>
+  <div class="card-body">
+    <form id="depositForm">
+      <div class="mb-3">
+        <label for="studentId" class="form-label">เลือกนักเรียน</label>
+        <select class="form-select" id="studentId" name="studentId" required>
+          <option value="">-- กรุณาเลือกนักเรียน --</option>
+          </select>
+      </div>
+      <div class="mb-3">
+        <label for="amount" class="form-label">จำนวนเงิน (บาท)</label>
+        <input type="number" class="form-control" id="amount" name="amount" step="0.01" min="1" required>
+      </div>
+      <hr>
+      <button type="submit" class="btn btn-success"><i class="bi bi-check-circle-fill me-2"></i>ยืนยันการฝากเงิน</button>
+    </form>
+  </div>
+</div>
