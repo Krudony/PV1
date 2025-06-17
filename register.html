@@ -1,0 +1,128 @@
+<h1 class="h3 mb-4 text-gray-800">ลงทะเบียนนักเรียน</h1>
+<div class="card shadow mb-4">
+  <div class="card-header py-3">
+    <h6 class="m-0 font-weight-bold text-primary">ฟอร์มลงทะเบียนนักเรียนใหม่</h6>
+  </div>
+  <div class="card-body">
+    <form id="registerForm" autocomplete="off" class="row g-3">
+      <div class="col-md-2 form-floating">
+        <select class="form-select" id="prefix" name="prefix" required>
+          <option value="ด.ช.">ด.ช.</option>
+          <option value="ด.ญ.">ด.ญ.</option>
+          <option value="นาย">นาย</option>
+          <option value="น.ส.">น.ส.</option>
+        </select>
+        <label for="prefix">คำนำหน้า</label>
+      </div>
+      <div class="col-md-4 form-floating">
+        <input type="text" class="form-control" id="firstName" name="firstName" placeholder="ชื่อจริง" required>
+        <label for="firstName" class="ms-2">ชื่อจริง</label>
+      </div>
+      <div class="col-md-6 form-floating">
+        <input type="text" class="form-control" id="lastName" name="lastName" placeholder="นามสกุล" required>
+        <label for="lastName" class="ms-2">นามสกุล</label>
+      </div>
+      <div class="col-md-4 form-floating">
+        <select class="form-select" id="class" name="class" required>
+          <option value="" selected disabled>-- เลือกชั้นเรียน --</option>
+          <option value="ป.1">ป.1</option><option value="ป.2">ป.2</option><option value="ป.3">ป.3</option>
+          <option value="ป.4">ป.4</option><option value="ป.5">ป.5</option><option value="ป.6">ป.6</option>
+          <option value="ม.1">ม.1</option><option value="ม.2">ม.2</option><option value="ม.3">ม.3</option>
+        </select>
+        <label for="class">ชั้น</label>
+      </div>
+      <div class="col-md-2 form-floating">
+        <input type="number" class="form-control" id="studentNumber" name="studentNumber" placeholder="เลขที่" min="1" required>
+        <label for="studentNumber" class="ms-2">เลขที่</label>
+      </div>
+      <div class="col-md-6 d-flex align-items-center">
+         <div id="studentNumberFeedback" class="validation-feedback w-100"></div>
+      </div>
+      <div class="col-12">
+        <hr>
+        <button id="registerButton" type="submit" class="btn btn-primary"><i class="bi bi-save-fill me-2"></i>ลงทะเบียน</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+
+<div id="registrationResult" class="mt-4"></div>
+
+
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">รายการนักเรียนในระบบ</h6>
+    </div>
+    <div class="card-body">
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <input type="text" id="searchInput" class="form-control" placeholder="ค้นหาด้วยชื่อ-นามสกุล...">
+            </div>
+            <div class="col-md-6">
+                <select id="classFilter" class="form-select">
+                    <option value="">-- กรองตามชั้นเรียน --</option>
+                    <option value="ป.1">ป.1</option><option value="ป.2">ป.2</option><option value="ป.3">ป.3</option>
+                    <option value="ป.4">ป.4</option><option value="ป.5">ป.5</option><option value="ป.6">ป.6</option>
+                    <option value="ม.1">ม.1</option><option value="ม.2">ม.2</option><option value="ม.3">ม.3</option>
+                </select>
+            </div>
+        </div>
+        <div class="table-responsive">
+            <table class="table table-bordered table-striped table-hover" id="studentTable">
+                <thead class="table-light">
+                    <tr>
+                        <th style="width: 10%;">เลขที่</th>
+                        <th>ชื่อ-สกุล</th>
+                        <th style="width: 15%;">ชั้น</th>
+                        <th style="width: 15%;">จัดการ</th>
+                    </tr>
+                </thead>
+                <tbody id="studentTableBody">
+                    </tbody>
+            </table>
+        </div>
+        <nav class="d-flex justify-content-between align-items-center mt-3">
+            <div id="paginationInfo" class="text-muted small"></div>
+            <ul class="pagination mb-0">
+                <li class="page-item" id="prevPage">
+                    <a class="page-link" href="#">ก่อนหน้า</a>
+                </li>
+                <li class="page-item" id="nextPage">
+                    <a class="page-link" href="#">ถัดไป</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</div>
+
+
+<div class="modal fade" id="editStudentModal" tabindex="-1" aria-labelledby="editStudentModalLabel" aria-hidden="true">
+  <div class="modal-dialog"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="editStudentModalLabel">แก้ไขข้อมูลนักเรียน</h5><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button></div>
+      <div class="modal-body">
+        <form id="editStudentForm">
+            <input type="hidden" id="editStudentId">
+            <div class="mb-3"><label for="editPrefix" class="form-label">คำนำหน้า</label><select id="editPrefix" class="form-select"><option value="ด.ช.">ด.ช.</option><option value="ด.ญ.">ด.ญ.</option><option value="นาย">นาย</option><option value="น.ส.">น.ส.</option></select></div>
+            <div class="mb-3"><label for="editFirstName" class="form-label">ชื่อจริง</label><input type="text" id="editFirstName" class="form-control"></div>
+            <div class="mb-3"><label for="editLastName" class="form-label">นามสกุล</label><input type="text" id="editLastName" class="form-control"></div>
+            <div class="row"><div class="col-6"><label for="editClass" class="form-label">ชั้น</label><select id="editClass" class="form-select"><option value="ป.1">ป.1</option><option value="ป.2">ป.2</option><option value="ป.3">ป.3</option><option value="ป.4">ป.4</option><option value="ป.5">ป.5</option><option value="ป.6">ป.6</option><option value="ม.1">ม.1</option><option value="ม.2">ม.2</option><option value="ม.3">ม.3</option></select></div>
+                <div class="col-6"><label for="editStudentNumber" class="form-label">เลขที่</label><input type="number" id="editStudentNumber" class="form-control"></div></div>
+        </form>
+      </div>
+      <div class="modal-footer"><button type="button" class="btn btn-secondary" data-bs-dismiss="modal">ยกเลิก</button><button type="button" id="saveEditButton" class="btn btn-primary">บันทึกการเปลี่ยนแปลง</button></div>
+    </div></div>
+</div>
+<div class="modal fade" id="infoModal" tabindex="-1" aria-labelledby="infoModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered"><div class="modal-content">
+      <div class="modal-header" id="infoModalHeader"><h5 class="modal-title" id="infoModalLabel">แจ้งเตือน</h5><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button></div>
+      <div class="modal-body" id="infoModalBody"></div>
+      <div class="modal-footer"><button type="button" class="btn btn-primary" data-bs-dismiss="modal">ตกลง</button></div>
+  </div></div>
+</div>
+<div class="modal fade" id="confirmModal" tabindex="-1" aria-labelledby="confirmModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered"><div class="modal-content">
+      <div class="modal-header"><h5 class="modal-title" id="confirmModalLabel">ยืนยันการดำเนินการ</h5><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button></div>
+      <div class="modal-body" id="confirmModalBody"></div>
+      <div class="modal-footer"><button type="button" class="btn btn-secondary" data-bs-dismiss="modal">ยกเลิก</button><button type="button" id="confirmModalButton" class="btn btn-danger">ยืนยัน</button></div>
+  </div></div>
+</div>
