@@ -1,0 +1,52 @@
+<h1 class="h3 mb-4 text-gray-800">รายงาน</h1>
+
+
+<div class="card shadow mb-4">
+  <div class="card-header py-3">
+    <h6 class="m-0 font-weight-bold text-primary">ตัวกรองรายงาน</h6>
+  </div>
+  <div class="card-body">
+    <form id="reportForm" class="row g-3 align-items-end">
+      <div class="col-md-5">
+        <label for="startDate" class="form-label">ตั้งแต่วันที่</label>
+        <input type="date" class="form-control" id="startDate">
+      </div>
+      <div class="col-md-5">
+        <label for="endDate" class="form-label">ถึงวันที่</label>
+        <input type="date" class="form-control" id="endDate">
+      </div>
+      <div class="col-md-2">
+        <button type="submit" class="btn btn-primary w-100">สร้างรายงาน</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+
+<div class="card shadow mb-4">
+  <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+    <h6 id="reportSummary" class="m-0 font-weight-bold text-primary">ผลลัพธ์</h6>
+    <button id="exportButton" class="btn btn-sm btn-success" style="display: none;">
+      <i class="bi bi-file-earmark-excel-fill me-2"></i>Export to Excel
+    </button>
+  </div>
+  <div class="card-body">
+    <div class="table-responsive">
+      <table class="table table-bordered table-striped" width="100%" cellspacing="0">
+        <thead>
+          <tr>
+            <th>รหัสรายการ</th>
+            <th>วันที่</th>
+            <th>รหัสนักเรียน</th>
+            <th>ชื่อ-สกุล</th>
+            <th>ประเภท</th>
+            <th class="text-end">จำนวนเงิน</th>
+          </tr>
+        </thead>
+        <tbody id="reportTableBody">
+          <tr><td colspan="6" class="text-center">กรุณากรองข้อมูลเพื่อสร้างรายงาน</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
